@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f1a825f7-79af-470e-b4d8-69f095fad3b2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logit.go" beforeDir="false" afterPath="$PROJECT_DIR$/logit.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +48,7 @@
     "Go Test.TestPrintLine in github.com/krakentech/logit_go.executor": "Coverage",
     "Go Test.TestTracker in github.com/krakentech/logit_go.executor": "Run",
     "Go Test.go test github.com/krakentech/logit_go.executor": "Coverage",
+    "Go Test.go test logit_go.executor": "Coverage",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.GoLinterPluginOnboarding": "true",
     "RunOnceActivity.GoLinterPluginStorageMigration": "true",
@@ -69,18 +68,7 @@
     "settings.editor.selected.configurable": "project.scopes"
   }
 }]]></component>
-  <component name="RunManager" selected="Go Test.TestTracker in github.com/krakentech/logit_go">
-    <configuration name="TestDebug in github.com/krakentech/logit_go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="logit_go" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="github.com/krakentech/logit_go" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestDebug\E$" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Go Test.go test logit_go">
     <configuration name="TestInfo in github.com/krakentech/logit_go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="logit_go" />
       <working_directory value="$PROJECT_DIR$" />
@@ -124,13 +112,22 @@
       <framework value="gotest" />
       <method v="2" />
     </configuration>
+    <configuration name="go test logit_go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="logit_go" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.go test logit_go" />
         <item itemvalue="Go Test.TestTracker in github.com/krakentech/logit_go" />
         <item itemvalue="Go Test.go test github.com/krakentech/logit_go" />
         <item itemvalue="Go Test.TestPrintLine in github.com/krakentech/logit_go" />
         <item itemvalue="Go Test.TestInfo in github.com/krakentech/logit_go" />
-        <item itemvalue="Go Test.TestDebug in github.com/krakentech/logit_go" />
       </list>
     </recent_temporary>
   </component>
@@ -159,6 +156,7 @@
     <settings-migrated>true</settings-migrated>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/logit_go$go_test_logit_go.out" NAME="go test logit_go Coverage Results" MODIFIED="1758914486293" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/logit_go$TestPrintLine_in_github_com_krakentech_logit_go.out" NAME="TestPrintLine in github.com/krakentech/logit_go Coverage Results" MODIFIED="1758910793692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/logit_go$go_test_github_com_krakentech_logit_go.out" NAME="go test github.com/krakentech/logit_go Coverage Results" MODIFIED="1758913848319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
