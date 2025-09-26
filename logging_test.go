@@ -99,15 +99,15 @@ func TestWarn(t *testing.T) {
 	}{
 		{
 			name:    "Warn Message",
-			message: "This is a warn message",
+			message: "This is a warning message",
 			values:  []any{},
-			want:    "06.01.02-15:04:05 ⚠️ - This is a warn message\n",
+			want:    "06.01.02-15:04:05 ⚠️ - This is a warning message\n",
 		},
 		{
 			name:    "Warn Message and Values",
-			message: "This is a warn message [%s, %d, %t]",
+			message: "This is a warning message [%s, %d, %t]",
 			values:  []any{"A", 123, true},
-			want:    "06.01.02-15:04:05 ⚠️ - This is a warn message [A, 123, true]\n",
+			want:    "06.01.02-15:04:05 ⚠️ - This is a warning message [A, 123, true]\n",
 		},
 	}
 
