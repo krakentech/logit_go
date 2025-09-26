@@ -16,8 +16,8 @@ func main() {
 	logit.Error("This is an error message")
 	logit.Err(fmt.Errorf("this is an error message"), "This is the message")
 
-	logit.DebugData([]string{"A", "B", "C"}, false, "Debug Data (formated: %t)", false)
-	logit.DebugData([]string{"A", "B", "C"}, true, "Debug Data (formated: %t)", true)
+	logit.DebugData([]string{"A", "B", "C"}, false, "Debug Data (formatted: %t)", false)
+	logit.DebugData([]string{"A", "B", "C"}, true, "Debug Data (formatted: %t)", true)
 
 	t.Log()
 }
