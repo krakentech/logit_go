@@ -19,7 +19,7 @@ const (
 )
 
 var (
-	isDebug    bool      = false
+	isDebug    bool
 	outFormat  string    = outputDefault
 	timeFormat string    = timeFormatDefault
 	writer     io.Writer = os.Stdout
