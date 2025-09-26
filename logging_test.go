@@ -52,19 +52,6 @@ func TestDebug(t *testing.T) {
 			buff.Reset()
 		})
 	}
-
-	// buf := &bytes.Buffer{}
-	// SetWriter(buf)
-	// now = func() time.Time { return time.Date(2006, time.January, 2, 15, 4, 5, 0, time.UTC) }
-	//
-	// Debug("This is a debug message: %d", 42)
-	// assert.Equal(t, "", buf.String())
-	//
-	// SetIsDebug(true)
-	// Debug("This is a debug message: %d", 42)
-	// assert.Equal(t, "06.01.02-15:04:05 🐛 - This is a debug message: 42\n", buf.String())
-	//
-	// setSettingsToDefault()
 }
 
 func TestInfo(t *testing.T) {
