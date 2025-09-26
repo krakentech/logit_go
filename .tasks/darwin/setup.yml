@@ -1,0 +1,281 @@
+# https://taskfile.dev
+version: "3"
+
+tasks:
+  #  [ BASIC ]
+  basic:
+    desc: Creates a basic repo that is not spefic to any language or framework
+    cmds:
+      - task: actionSetupReadme
+      - task: actionCleanup
+      - task: actionResetRepo
+    silent: true
+
+  # [ GOLANG - Application ]
+  golangApplication:
+    desc: Create a basic "main" application
+    vars:
+      TF_IMPORTS:
+        - "app: ./.tasks/{{OS}}/app.yml"
+    cmds:
+      - task: actionAppendInserts
+        vars:
+          TASK_INSERTS: "{{.TF_IMPORTS}}"
+      - task: actionCopyTasks
+        vars:
+          TEMPLATE_NAME: "golang_app"
+      # SETUP GOLANG APP
+      - cp ./_project_files/golang_app/.gitignore ./.gitignore
+      - cp ./_project_files/golang_app/main.go ./main.go
+      - task: actionSetupGolang
+        vars:
+          BASE_PATH: ""
+      - task: actionSetupReadme
+      - task: actionCleanup
+      - task: actionResetRepo
+    silent: true
+
+  # [ GOLANG - Package ]
+  golangPackage:
+    desc: Create a library for go
+    vars:
+      TF_IMPORTS:
+        - "app: ./.tasks/{{OS}}/app.yml"
+    cmds:
+      - task: actionAppendInserts
+        vars:
+          TASK_INSERTS: "{{.TF_IMPORTS}}"
+      - task: actionCopyTasks
+        vars:
+          TEMPLATE_NAME: "golang_package"
+      # SETUP GOLANG APP
+      - cp ./_project_files/golang_package/.gitignore ./.gitignore
+      - |
+        printf 'Enter package name (lowercase no spaces): ' && read pkgName
+        cp ./_project_files/golang_package/main.go "./$pkgName.go"
+        sed -i '' "s/PACKAGE_NAME/$pkgName/g" "./$pkgName.go"
+      - task: actionSetupGolang
+        vars:
+          BASE_PATH: ""
+      - task: actionSetupReadme
+      - task: actionCleanup
+      - task: actionResetRepo
+    silent: true
+
+  # [ REACT - Application ]
+  reactApplication:
+    desc: Create react web application
+    vars:
+      TF_IMPORTS:
+        - "app: ./.tasks/{{OS}}/web.yml"
+    cmds:
+      - task: actionAppendInserts
+        vars:
+          TASK_INSERTS: "{{.TF_IMPORTS}}"
+      - task: actionCopyTasks
+        vars:
+          TEMPLATE_NAME: "react_application"
+      - task: actionSetupReactWeb
+        vars:
+          BASE_PATH: ""
+      - task: actionSetupReadme
+      - task: actionCleanup
+      - task: actionResetRepo
+    silent: true
+
+  # [ NODE - Package ]
+  nodePackage:
+    desc: Creat a NPM package
+    cmds:
+      - |
+        tmpString="  flatten: true"
+        sed -i '' '/# PROJECT IMPORTS/a\'$'\n''  '"$tmpString"$'\n' ./Taskfile.yml
+        tmpString="  taskfile: ./.tasks/{{OS}}/app.yml"
+        sed -i '' '/# PROJECT IMPORTS/a\'$'\n''  '"$tmpString"$'\n' ./Taskfile.yml        
+        tmpString="lib:"
+        sed -i '' '/# PROJECT IMPORTS/a\'$'\n''  '"$tmpString"$'\n' ./Taskfile.yml
+      - task: actionCopyTasks
+        vars:
+          TEMPLATE_NAME: "node_package"
+      - task: actionSetupNpm
+        vars:
+          BASE_PATH: ""
+      - cp -r ./_project_files/node_package/.gitignore ./
+      - cp -r ./_project_files/node_package/.github ./
+      - task: actionSetupReadme
+      - task: actionCleanup
+      - task: actionResetRepo
+    silent: true
+
+  # [ Golang / REACT - Application ]
+  golangReactApplication:
+    desc: Create a golang server and react site combo
+    vars:
+      TF_IMPORTS:
+        - "app: ./.tasks/{{OS}}/app.yml"
+        - "web: ./.tasks/{{OS}}/web.yml"
+    cmds:
+      - task: actionAppendInserts
+        vars:
+          TASK_INSERTS: "{{.TF_IMPORTS}}"
+      - task: actionCopyTasks
+        vars:
+          TEMPLATE_NAME: "golang_app"
+      - task: actionCopyTasks
+        vars:
+          TEMPLATE_NAME: "golang_react_app"
+      # SETUP GOLANG APP
+      - task: actionSetupGolang
+        vars:
+          BASE_PATH: "./"
+      # SETUP REACT WEB APP
+      - task: actionSetupReactWeb
+        vars:
+          BASE_PATH: "./web/"
+      - task: actionSetupReadme
+      - task: actionCleanup
+      - task: actionResetRepo
+
+  # ***************************************************
+  # Setup Actions
+  # ***************************************************
+  actionSetupGolang:
+    internal: true
+    vars:
+      ORIGIN_URL:
+        sh: git config --get remote.origin.url
+      MOD_NAME: '{{(trimSuffix ".git" (trimPrefix "git@" .ORIGIN_URL)) | replace ":" "/"}}'
+    requires:
+      vars: [BASE_PATH]
+    dir: "{{.BASE_PATH}}"
+    cmds:
+      - cp ./_project_files/golang_app/.gitignore {{.BASE_PATH}}.gitignore
+      - cp ./_project_files/golang_app/main.go {{.BASE_PATH}}main.go
+      - go mod init {{.MOD_NAME}}
+      - go mod tidy
+      - mkdir -p {{.USER_WORKING_DIR}}/.idea
+      - cp {{.USER_WORKING_DIR}}/res/ide-icon.svg {{.USER_WORKING_DIR}}/.idea/icon.svg
+    silent: true
+
+  actionSetupReactWeb:
+    internal: true
+    requires:
+      vars: [BASE_PATH]
+    dir: "{{.BASE_PATH}}"
+    cmds:
+      - |
+        printf 'Enter app name (lowercase no spaces): ' && read appName
+        npx create-react-app ./tmp $appName --template typescript
+      - rm ./tmp/package-lock.json
+      - rm -rf ./tmp/node_modules
+      - mv ./tmp/* ./
+      - mv ./tmp/.gitignore ./
+      - rm -rf ./tmp
+      - yarn
+    silent: true
+
+  actionSetupNpm:
+    internal: true
+    requires:
+      vars: [BASE_PATH]
+    dir: "{{.BASE_PATH}}"
+    cmds:
+      # - echo "{{.USER_WORKING_DIR}}"
+      - npm init -y
+      - yarn add typescript ts-node @types/node @tsconfig/node20 jest ts-jest @types/jest eslint @eslint/js jiti globals typescript-eslint eslint-plugin-jest eslint-plugin-prettier eslint-config-prettier --save-dev
+      - yarn add prettier --save-dev --save-exact
+      - mkdir tests src
+      - touch ./src/index.ts
+      - cp "{{.USER_WORKING_DIR}}/_project_files/node_package/jest.config.js" ./
+      - cp "{{.USER_WORKING_DIR}}/_project_files/node_package/tsconfig.json" ./
+      - cp "{{.USER_WORKING_DIR}}/_project_files/node_package/tsconfig.json.tests" ./tests/tsconfig.json
+      - cp "{{.USER_WORKING_DIR}}/_project_files/node_package/eslint.config.mts" ./
+      - cp "{{.USER_WORKING_DIR}}/_project_files/node_package/.prettierrc" ./
+      - cp -R "{{.USER_WORKING_DIR}}/_project_files/node_package/.vscode" ./
+      - |
+        tmpString="  \"test:watch\": \"jest --watch\""
+        sed -i '' '/Error\: no test specified/a\'$'\n''  '"$tmpString"$'\n' ./package.json
+        tmpString="  \"test\": \"jest\","
+        sed -i '' '/Error\: no test specified/a\'$'\n''  '"$tmpString"$'\n' ./package.json
+        tmpString="  \"build\": \"tsc\","
+        sed -i '' '/Error\: no test specified/a\'$'\n''  '"$tmpString"$'\n' ./package.json
+        tmpString="  \"lint\": \"eslint\","
+        sed -i '' '/Error\: no test specified/a\'$'\n''  '"$tmpString"$'\n' ./package.json
+        tmpString="  \"typecheck\": \"tsc --noEmit\","
+        sed -i '' '/Error\: no test specified/a\'$'\n''  '"$tmpString"$'\n' ./package.json
+        sed -i '' '/Error\: no test specified/d' ./package.json
+      - yarn lint -- --fix
+    silent: true
+
+  # ***************************************************
+  # Utils
+  # ***************************************************
+
+  # [ ACTION SETUP README ] This will prompt the user to copy in the github toppers and other res .. then copy in our template readme
+  # note: If you are going to add a custome readme this could cause some differences.
+  actionSetupReadme:
+    internal: true
+    cmds:
+      - echo ""
+      - echo "Replace project images in 'res' folder."
+      - echo "Hit Enter to Continue:"
+      - read p
+      - mv ./README-template.md ./README.md
+    silent: true
+
+  # [ ACTION APPEND INSERTS ] This action will update the base Taskfile and append the passed inserts
+  actionAppendInserts:
+    internal: true
+    requires:
+      vars: [TASK_INSERTS]
+    cmds:
+      - |
+        tmpString=""
+        for i in {{ .TASK_INSERTS  }}; do 
+          tst="${i//[][]/}"; 
+          if [[ "$tst" == *":" ]]; then
+            tmpString=$tst
+          else
+            tmpString="$tmpString $tst"
+            sed -i '' '/# PROJECT IMPORTS/a\'$'\n''  '"$tmpString"$'\n' ./Taskfile.yml
+            tmpString=""
+          fi;
+          
+        done
+    silent: true
+
+  # [ ACTION COPY TASKS ] This will copy the template task files into place
+  actionCopyTasks:
+    internal: true
+    requires:
+      vars: [TEMPLATE_NAME]
+    cmds:
+      - cp -r ./_project_files/{{.TEMPLATE_NAME}}/tasks/* ./.tasks
+    silent: true
+
+  # [ ACTION CLEANUP ] Cleanup standard left overs
+  actionCleanup:
+    internal: true
+    cmds:
+      # Remove Setup Tasks
+      - sed -i '' '/setup\:/d' Taskfile.yml
+      # Remove Insert Keys
+      - sed -i '' '/# PROJECT IMPORTS/d' Taskfile.yml
+      - sed -i '' '/# PROJECT TASKS/d' Taskfile.yml
+      # Remove Template Files
+      - rm -rf ./_project_files
+    silent: true
+
+  # [ ACTION RESET REPO ] This will reset the repo to one commit on main
+  actionResetRepo:
+    internal: true
+    cmds:
+      - git checkout --orphan tmpBranch
+      - git add -A
+      - git commit -m "the start of it all"
+      - git branch -D main
+      - git branch -m main
+      - git push -f origin main
+      - git gc --aggressive --prune=all
+      - git push -u origin main
+    silent: true

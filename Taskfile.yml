@@ -1,0 +1,13 @@
+# https://taskfile.dev
+version: "3"
+
+includes:
+  branch: ./.tasks/{{OS}}/branches.yml
+  utils: ./.tasks/{{OS}}/utils.yml
+  app: ./.tasks/darwin/app.yml
+
+tasks:
+  default:
+    cmds:
+      - task -l
+    silent: true
