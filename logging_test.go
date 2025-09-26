@@ -166,24 +166,24 @@ func TestErr(t *testing.T) {
 	}{
 		{
 			name:    "Err Message",
-			message: "This is a error message",
+			message: "This is an error message",
 			values:  []any{},
 			err:     errors.New("test error"),
-			want:    "06.01.02-15:04:05 💥 - This is a error message: test error\n",
+			want:    "06.01.02-15:04:05 💥 - This is an error message: test error\n",
 		},
 		{
 			name:    "Err Message and Values",
-			message: "This is a error message [%s, %d, %t]",
+			message: "This is an error message [%s, %d, %t]",
 			values:  []any{"A", 123, true},
 			err:     errors.New("test error"),
-			want:    "06.01.02-15:04:05 💥 - This is a error message [A, 123, true]: test error\n",
+			want:    "06.01.02-15:04:05 💥 - This is an error message [A, 123, true]: test error\n",
 		},
 		{
 			name:    "Err Message and Values No Error",
-			message: "This is a error message [%s, %d, %t]",
+			message: "This is an error message [%s, %d, %t]",
 			values:  []any{"A", 123, true},
 			err:     nil,
-			want:    "06.01.02-15:04:05 💥 - This is a error message [A, 123, true]: no error to log\n",
+			want:    "06.01.02-15:04:05 💥 - This is an error message [A, 123, true]: no error to log\n",
 		},
 	}
 
