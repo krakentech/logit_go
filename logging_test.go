@@ -132,15 +132,15 @@ func TestError(t *testing.T) {
 	}{
 		{
 			name:    "Error Message",
-			message: "This is a error message",
+			message: "This is an error message",
 			values:  []any{},
-			want:    "06.01.02-15:04:05 💥 - This is a error message\n",
+			want:    "06.01.02-15:04:05 💥 - This is an error message\n",
 		},
 		{
 			name:    "Error Message and Values",
-			message: "This is a error message [%s, %d, %t]",
+			message: "This is an error message [%s, %d, %t]",
 			values:  []any{"A", 123, true},
-			want:    "06.01.02-15:04:05 💥 - This is a error message [A, 123, true]\n",
+			want:    "06.01.02-15:04:05 💥 - This is an error message [A, 123, true]\n",
 		},
 	}
 
