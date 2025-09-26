@@ -17,3 +17,7 @@ go get -u github.com/krakentech/logit_go
 ```
 
 ## Usage
+
+## Licence
+
+MIT
