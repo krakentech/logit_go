@@ -44,12 +44,12 @@ func Err(err error, format string, a ...interface{}) {
 	printLine(logTypeError, fmt.Sprintf("%s: %s", msg, err.Error()))
 }
 
-func DebugData(data any, formated bool, format string, a ...interface{}) {
+func DebugData(data any, formatted bool, format string, a ...interface{}) {
 	if isDebug {
 		var b = make([]byte, 0)
 		var err error = nil
 
-		if formated {
+		if formatted {
 			b, err = json.MarshalIndent(data, "", "\t")
 		} else {
 			b, err = json.Marshal(data)
