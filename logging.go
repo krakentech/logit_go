@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"os"
 	"strings"
 )
 
@@ -79,6 +80,6 @@ func printLine(lType logType, msg string) {
 
 	_, err := printLf(writer, out)
 	if err != nil {
-		fmt.Printf("failed to print line: %s", err.Error())
+		_, _ = os.Stderr.WriteString(fmt.Sprintf("failed to print line: %s\n", err.Error()))
 	}
 }
