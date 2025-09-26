@@ -66,15 +66,15 @@ func TestInfo(t *testing.T) {
 	}{
 		{
 			name:    "Info Message",
-			message: "This is a info message",
+			message: "This is an info message",
 			values:  []any{},
-			want:    "06.01.02-15:04:05 🧠 - This is a info message\n",
+			want:    "06.01.02-15:04:05 🧠 - This is an info message\n",
 		},
 		{
 			name:    "Info Message and Values",
-			message: "This is a info message [%s, %d, %t]",
+			message: "This is an info message [%s, %d, %t]",
 			values:  []any{"A", 123, true},
-			want:    "06.01.02-15:04:05 🧠 - This is a info message [A, 123, true]\n",
+			want:    "06.01.02-15:04:05 🧠 - This is an info message [A, 123, true]\n",
 		},
 	}
 
