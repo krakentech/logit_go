@@ -214,56 +214,56 @@ func TestDebugData(t *testing.T) {
 	buff := setupForLoggingTest()
 
 	tests := []struct {
-		name     string
-		isDebug  bool
-		data     any
-		formated bool
-		message  string
-		values   []any
-		want     string
+		name      string
+		isDebug   bool
+		data      any
+		formatted bool
+		message   string
+		values    []any
+		want      string
 	}{
 		{
-			name:     "Debug False",
-			isDebug:  false,
-			data:     map[string]any{},
-			formated: true,
-			message:  "Test Debug Data Message",
-			values:   []any{},
-			want:     "",
+			name:      "Debug False",
+			isDebug:   false,
+			data:      map[string]any{},
+			formatted: true,
+			message:   "Test Debug Data Message",
+			values:    []any{},
+			want:      "",
 		},
 		{
-			name:     "Debug Message [un-formated]",
-			isDebug:  true,
-			data:     []string{"A", "B", "C"},
-			formated: false,
-			message:  "Test Debug Data Message",
-			values:   []any{},
-			want:     "06.01.02-15:04:05 ✨ - --> Test Debug Data Message\n06.01.02-15:04:05 ✨ - [\"A\",\"B\",\"C\"]\n",
+			name:      "Debug Message [un-formatted]",
+			isDebug:   true,
+			data:      []string{"A", "B", "C"},
+			formatted: false,
+			message:   "Test Debug Data Message",
+			values:    []any{},
+			want:      "06.01.02-15:04:05 ✨ - --> Test Debug Data Message\n06.01.02-15:04:05 ✨ - [\"A\",\"B\",\"C\"]\n",
 		},
 		{
-			name:     "Debug Message [formated]",
-			isDebug:  true,
-			data:     []string{"A", "B", "C"},
-			formated: true,
-			message:  "Test Debug Data Message",
-			values:   []any{},
-			want:     "06.01.02-15:04:05 ✨ - --> Test Debug Data Message\n06.01.02-15:04:05 ✨ - [\n06.01.02-15:04:05 ✨ - \t\"A\",\n06.01.02-15:04:05 ✨ - \t\"B\",\n06.01.02-15:04:05 ✨ - \t\"C\"\n06.01.02-15:04:05 ✨ - ]\n",
+			name:      "Debug Message [formatted]",
+			isDebug:   true,
+			data:      []string{"A", "B", "C"},
+			formatted: true,
+			message:   "Test Debug Data Message",
+			values:    []any{},
+			want:      "06.01.02-15:04:05 ✨ - --> Test Debug Data Message\n06.01.02-15:04:05 ✨ - [\n06.01.02-15:04:05 ✨ - \t\"A\",\n06.01.02-15:04:05 ✨ - \t\"B\",\n06.01.02-15:04:05 ✨ - \t\"C\"\n06.01.02-15:04:05 ✨ - ]\n",
 		},
 		{
-			name:     "Debug Bad Data",
-			isDebug:  true,
-			data:     make(chan int),
-			formated: false,
-			message:  "Test Debug Data Message",
-			values:   []any{},
-			want:     "06.01.02-15:04:05 💥 - failed to marshal data object: json: unsupported type: chan int\n",
+			name:      "Debug Bad Data",
+			isDebug:   true,
+			data:      make(chan int),
+			formatted: false,
+			message:   "Test Debug Data Message",
+			values:    []any{},
+			want:      "06.01.02-15:04:05 💥 - failed to marshal data object: json: unsupported type: chan int\n",
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			SetIsDebug(tt.isDebug)
-			DebugData(tt.data, tt.formated, tt.message, tt.values...)
+			DebugData(tt.data, tt.formatted, tt.message, tt.values...)
 			assert.Equal(t, tt.want, buff.String())
 			buff.Reset()
 		})

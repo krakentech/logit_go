@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f1a825f7-79af-470e-b4d8-69f095fad3b2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/example/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +48,7 @@
     "Go Test.TestPrintLine in github.com/krakentech/logit_go.executor": "Coverage",
     "Go Test.TestTracker in github.com/krakentech/logit_go.executor": "Run",
     "Go Test.go test github.com/krakentech/logit_go.executor": "Coverage",
-    "Go Test.go test logit_go.executor": "Coverage",
+    "Go Test.go test logit_go.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.GoLinterPluginOnboarding": "true",
     "RunOnceActivity.GoLinterPluginStorageMigration": "true",
@@ -117,6 +116,7 @@
       <module name="logit_go" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="DIRECTORY" />
+      <package value="github.com/krakentech/logit_go" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
