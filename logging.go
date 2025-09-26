@@ -18,25 +18,25 @@ var (
 	logTypePerformance logType = "⏰"
 )
 
-func Debug(format string, a ...interface{}) {
+func Debug(format string, a ...any) {
 	if isDebug {
 		printLine(logTypeDebug, fmt.Sprintf(format, a...))
 	}
 }
 
-func Info(format string, a ...interface{}) {
+func Info(format string, a ...any) {
 	printLine(logTypeInfo, fmt.Sprintf(format, a...))
 }
 
-func Warn(format string, a ...interface{}) {
+func Warn(format string, a ...any) {
 	printLine(logTypeWarn, fmt.Sprintf(format, a...))
 }
 
-func Error(format string, a ...interface{}) {
+func Error(format string, a ...any) {
 	printLine(logTypeError, fmt.Sprintf(format, a...))
 }
 
-func Err(err error, format string, a ...interface{}) {
+func Err(err error, format string, a ...any) {
 	msg := fmt.Sprintf(format, a...)
 	if err == nil {
 		err = fmt.Errorf("no error to log")
@@ -44,7 +44,7 @@ func Err(err error, format string, a ...interface{}) {
 	printLine(logTypeError, fmt.Sprintf("%s: %s", msg, err.Error()))
 }
 
-func DebugData(data any, formatted bool, format string, a ...interface{}) {
+func DebugData(data any, formatted bool, format string, a ...any) {
 	if isDebug {
 		var b = make([]byte, 0)
 		var err error = nil
